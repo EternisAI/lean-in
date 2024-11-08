@@ -1,0 +1,26 @@
+[project]
+name = "lean-net"
+version = "0.1.0"
+description = "lean prover subnet"
+authors = [
+    {name = "Eternis", email = "*@eternis.ai"},
+]
+dependencies = [
+    "starlette>=0.30.0",
+    "pydantic>=2",
+    "rich>=13",
+    "pytest>=8",
+    "numpy>=1",
+    "setuptools>=68",
+]
+requires-python = ">=3.12"
+readme = "README.md"
+license = {text = "MIT"}
+
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
+
+
+[tool.pdm]
+distribution = true
