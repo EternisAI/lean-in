@@ -3,18 +3,17 @@ __pycache__/
 *.egg-info/
 
 # Virtual Environment
-bt_venv/
 .venv/
 venv/
 
-# macOS
-.DS_Store
-
 # PDM
-.pdm-python/
+.pdm-python
 .pdm-build/
 __pypackages__/
 .pdm.toml
+
+# macOS
+.DS_Store
 
 # IDE stuff
 .vscode/
