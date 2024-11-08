@@ -20,7 +20,6 @@ import numpy as np
 from typing import List
 import bittensor as bt
 
-from template.validator.lean_net import make_lean_program
 from template.validator.lean_check import check_lean_proof
 
 
@@ -39,7 +38,7 @@ def reward(query: str, response: str) -> float:
     Returns:
     - float: The reward value for the miner.
     """
-    
+
     lean_program = make_lean_program(proposition=query, proof=response)
     compilation = check_lean_proof(lean_program)
     reward = 1.0 if compilation.success else 0.0
