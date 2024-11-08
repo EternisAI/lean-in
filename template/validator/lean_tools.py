@@ -1,6 +1,8 @@
 import subprocess
 from dataclasses import dataclass
 from pathlib import Path
+from random import randint
+
 
 def make_lean_query(_step):
     a, b = randint(0, 1000), randint(0, 1000)

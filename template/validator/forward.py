@@ -18,7 +18,6 @@
 # DEALINGS IN THE SOFTWARE.
 
 import time
-from random import randint
 import bittensor as bt
 
 from template.protocol import Dummy
