@@ -24,6 +24,13 @@ from template.validator.lean_net import make_lean_program
 from template.validator.lean_check import check_lean_proof
 
 
+def make_lean_program(proposition: str, proof: str) -> str:
+    return f"""
+theorem my_sum : {proposition} :=
+    {proof}
+""".strip()
+
+
 def reward(query: str, response: str) -> float:
     """
     Reward the miner response to the dummy request. This method returns a reward
@@ -32,6 +39,7 @@ def reward(query: str, response: str) -> float:
     Returns:
     - float: The reward value for the miner.
     """
+    
     lean_program = make_lean_program(proposition=query, proof=response)
     compilation = check_lean_proof(lean_program)
     reward = 1.0 if compilation.success else 0.0

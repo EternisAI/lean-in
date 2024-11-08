@@ -18,6 +18,7 @@
 # DEALINGS IN THE SOFTWARE.
 
 import time
+from random import randint
 import bittensor as bt
 
 from template.protocol import Dummy
@@ -39,6 +40,10 @@ async def forward(self):
     # TODO(developer): Define how the validator selects a miner to query, how often, etc.
     # get_random_uids is an example method, but you can replace it with your own.
     miner_uids = get_random_uids(self, k=self.config.neuron.sample_size)
+
+    def make_query(_step):
+        a, b = randint(0, 1000), randint(0, 1000)
+        return f"{a} + {b} = {a+b}"
 
     query = make_query(self.step)
 
