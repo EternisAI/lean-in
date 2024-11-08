@@ -4,6 +4,18 @@ __pycache__/
 
 # Virtual Environment
 bt_venv/
+.venv/
+venv/
 
 # macOS
 .DS_Store
+
+# PDM
+.pdm-python/
+.pdm-build/
+__pypackages__/
+.pdm.toml
+
+# IDE stuff
+.vscode/
+.idea/
