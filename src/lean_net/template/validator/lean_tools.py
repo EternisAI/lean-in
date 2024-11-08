@@ -2,6 +2,17 @@ import subprocess
 from dataclasses import dataclass
 from pathlib import Path
 
+def make_lean_query(_step):
+    a, b = randint(0, 1000), randint(0, 1000)
+    return f"{a} + {b} = {a+b}"
+
+
+def make_lean_program(proposition: str, proof: str) -> str:
+    return f"""
+theorem my_sum : {proposition} :=
+    {proof}
+""".strip()
+
 
 @dataclass
 class CompilationResult:

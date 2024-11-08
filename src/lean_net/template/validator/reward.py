@@ -20,14 +20,7 @@ import numpy as np
 from typing import List
 import bittensor as bt
 
-from template.validator.lean_check import check_lean_proof
-
-
-def make_lean_program(proposition: str, proof: str) -> str:
-    return f"""
-theorem my_sum : {proposition} :=
-    {proof}
-""".strip()
+from template.validator.lean_tools import check_lean_proof, make_lean_program
 
 
 def reward(query: str, response: str) -> float:

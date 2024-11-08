@@ -24,6 +24,7 @@ import bittensor as bt
 from template.protocol import Dummy
 from template.validator.reward import get_rewards
 from template.utils.uids import get_random_uids
+from template.validator.lean_tools import make_lean_query
 
 
 async def forward(self):
@@ -40,11 +41,7 @@ async def forward(self):
     # get_random_uids is an example method, but you can replace it with your own.
     miner_uids = get_random_uids(self, k=self.config.neuron.sample_size)
 
-    def make_query(_step):
-        a, b = randint(0, 1000), randint(0, 1000)
-        return f"{a} + {b} = {a+b}"
-
-    query = make_query(self.step)
+    query = make_lean_query(self.step)
 
     # The dendrite client queries the network.
     responses = await self.dendrite(
