@@ -55,7 +55,8 @@ The LEAN IN Bittensor subnet has behaviors for both **validators** and **miners*
 Before running the nodes, just do the following.
 1. Clone this repo
 2. In the repo folder, run `pdm install`
-3. Set up your keys
+3. Activate virtual environment: `eval $(pdm venv activate)`
+4. Set up your keys
 
 ## Validator
 
