@@ -3,16 +3,21 @@
 The following is a set of guidelines for contributing to the Bittensor ecosystem. These are **HIGHLY RECOMMENDED** guidelines, but not hard-and-fast rules. Use your best judgment, and feel free to propose changes to this document in a pull request.
 
 ## Table Of Contents
-1. [How Can I Contribute?](#how-can-i-contribute)
-   1. [Communication Channels](#communication-channels)
-   1. [Code Contribution General Guideline](#code-contribution-general-guidelines)
-   1. [Pull Request Philosophy](#pull-request-philosophy)
-   1. [Pull Request Process](#pull-request-process)
-   1. [Addressing Feedback](#addressing-feedback)
-   1. [Squashing Commits](#squashing-commits)
-   1. [Refactoring](#refactoring)
-   1. [Peer Review](#peer-review)
- 1. [Suggesting Features](#suggesting-enhancements-and-features)
+- [Contributing to Bittensor Subnet Development](#contributing-to-bittensor-subnet-development)
+  - [Table Of Contents](#table-of-contents)
+  - [How Can I Contribute?](#how-can-i-contribute)
+  - [Communication Channels](#communication-channels)
+    - [Code Contribution General Guidelines](#code-contribution-general-guidelines)
+      - [Pull Request Philosophy](#pull-request-philosophy)
+      - [Pull Request Process](#pull-request-process)
+      - [Addressing Feedback](#addressing-feedback)
+      - [Squashing Commits](#squashing-commits)
+      - [Refactoring](#refactoring)
+      - [Peer Review](#peer-review)
+      - [How Do I Submit A (Good) Bug Report?](#how-do-i-submit-a-good-bug-report)
+    - [Suggesting Enhancements and Features](#suggesting-enhancements-and-features)
+      - [Before Submitting An Enhancement Suggestion](#before-submitting-an-enhancement-suggestion)
+      - [How Submit A (Good) Feature Suggestion](#how-submit-a-good-feature-suggestion)
 
 
 ## How Can I Contribute?
