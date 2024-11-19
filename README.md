@@ -70,7 +70,7 @@ python neurons/validator.py \
 ```
 ## Miner 
 
-Before running the miner node, one must add their LLM API keys
+Before running the miner node, one must add mining logic, e.g. an LLM prompting loop with working API key, to the function `generate_proof` in `neurons/miner.py`.
 
 To run the miner script:
 ```
