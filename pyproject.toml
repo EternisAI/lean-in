@@ -1,7 +1,7 @@
 [project]
-name = "lean-net"
+name = "lean-in"
 version = "0.1.0"
-description = "lean prover subnet"
+description = "lean in subnet"
 authors = [
     {name = "Eternis", email = "*@eternis.ai"},
 ]
@@ -13,27 +13,15 @@ dependencies = [
     "numpy>=1",
     "setuptools>=68",
     "bittensor>=8.2.1",
+    "typer>=0.15.1",
 ]
 requires-python = ">=3.12"
-# readme = "README.md"
+readme = "README.md"
 license = {text = "MIT"}
 
 [build-system]
 requires = ["pdm-backend"]
 build-backend = "pdm.backend"
 
-
 [tool.pdm]
 distribution = true
-
-# [tool.pdm.scripts]
-# Install elan if not present
-# pre_install = { shell = """
-#     if ! command -v elan &> /dev/null; then
-#         curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf | sh -s -- -y
-#     fi
-#     # Add elan to PATH for next commands
-#     export PATH="$HOME/.elan/bin:$PATH"
-#     # Install/update lean and lake
-#     lake --version || true
-# """ }

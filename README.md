@@ -52,33 +52,19 @@ The LEAN IN Bittensor subnet has behaviors for both **validators** and **miners*
 
 # How to Run
 
-Before running the nodes, just do the following.
-1. Clone this repo
-2. In the repo folder, run `pdm install`
-3. Activate virtual environment: `eval $(pdm venv activate)`
-4. Set up your keys
-
-## Validator
-
-To run the validator node:
+1. Set up your wallet and keys on your machine.
+2. Build the container
+```bash
+docker build -t leanin .
 ```
-python neurons/validator.py \
-    --netuid 242 \
-    --subtensor.network test \
-    --wallet.name miner \
-    --wallet.hotkey default \
-    --logging.debug
+3. Run as `role=` `validator` or `miner`
+```bash
+docker run -it \
+    -v <your local wallet path>:/root/.bittensor/wallets \
+    leanin \
+    --role <role> \
+    --wallet.name <name> \
+    --wallet.hotkey <hotkey>
 ```
-## Miner 
 
-Before running the miner node, one must add mining logic, e.g. an LLM prompting loop with working API key, to the function `generate_proof` in `neurons/miner.py`.
-
-To run the miner script:
-```
-python neurons/miner.py \
-    --netuid 242 \
-    --subtensor.network test \
-    --wallet.name miner \
-    --wallet.hotkey default \
-    --logging.debug
-```
+In particular, before running the miner node, one must add mining logic, e.g. an LLM prompting loop with working API key, to the function `generate_proof` in `neurons/miner.py`.

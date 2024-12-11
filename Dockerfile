@@ -44,8 +44,7 @@ RUN ln -s /usr/lib/aarch64-linux-gnu /usr/lib/x86_64-linux-gnu || true
 
 # Install dependencies using PDM with --no-self option
 RUN pdm install --no-self
-RUN eval $(pdm venv activate)
 
-# Use ENTRYPOINT and CMD in array syntax
-ENTRYPOINT ["pdm", "run", "neurons/validator.py"]
-CMD ["--netuid", "242", "--subtensor.network", "test", "--wallet.name", "validator", "--wallet.hotkey", "default", "--logging.debug"]
+ENV PYTHONPATH=/app:${PYTHONPATH}
+
+ENTRYPOINT ["pdm", "run", "launch.py"]
