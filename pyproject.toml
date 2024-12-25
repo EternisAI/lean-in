@@ -25,3 +25,15 @@ build-backend = "pdm.backend"
 
 [tool.pdm]
 distribution = true
+
+[tool.pdm.scripts]
+launch = "python launch.py"
+pre_install = { shell = """
+    if ! command -v elan &> /dev/null; then
+        curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf | sh -s -- -y
+    fi
+    # Add elan to PATH for next commands
+    export PATH="$HOME/.elan/bin:$PATH"
+    # Install/update lean and lake
+    lake --version || true
+ """ }
