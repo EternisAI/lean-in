@@ -36,7 +36,6 @@ async def forward(self):
         self (:obj:`bittensor.neuron.Neuron`): The neuron object which contains all the necessary state for the validator.
 
     """
-    # Add debug log
     bt.logging.info("Starting validator forward pass...")
     
     miner_uids = get_random_uids(self, k=self.config.neuron.sample_size)
@@ -56,7 +55,6 @@ async def forward(self):
             synapse=Dummy(dummy_input=query),
             deserialize=True,
         )
-        # Log responses with UIDs
         for uid, response in zip(miner_uids, responses):
             bt.logging.info(f"Miner {uid} response: {response}")
     except Exception as e:

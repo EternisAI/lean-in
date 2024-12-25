@@ -54,12 +54,10 @@ class BaseMinerNeuron(BaseNeuron):
                 "You are allowing non-registered entities to send requests to your miner. This is a security risk."
             )
         # The axon handles request processing, allowing validators to send this miner requests.
-        bt.logging.debug(f"Pre-axon config: {self.config.axon}")
         self.axon = bt.axon(
             wallet=self.wallet,
             config=self.config() if callable(self.config) else self.config,
         )
-        bt.logging.debug(f"Post-axon config: {self.config.axon}")
 
         # Attach determiners which functions are called when servicing a request.
         bt.logging.info(f"Attaching forward function to miner axon.")
@@ -103,17 +101,9 @@ class BaseMinerNeuron(BaseNeuron):
         
         # Check that miner is registered on the network.
         self.sync()
-        
-        # Add this debug line
-        bt.logging.info(f"Miner axon details before serving: {self.axon}")
-        
         # Serve passes the axon information to the network + netuid we are hosting on.
         bt.logging.info(f"Serving miner axon {self.axon} on network: {self.config.subtensor.chain_endpoint} with netuid: {self.config.netuid}")
         self.axon.serve(netuid=self.config.netuid, subtensor=self.subtensor)
-        
-        # Add this debug line
-        bt.logging.info(f"Miner axon details after serving: {self.axon}")
-        
         # Start starts the miner's axon, making it active on the network.
         bt.logging.info("Starting axon...")
         self.axon.start()
