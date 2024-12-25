@@ -69,7 +69,7 @@ curl -sSL https://pdm.fming.dev/install-pdm.py | python3 -
 ```sh
 pdm install
 ```
-3. Run as validator or miner:
+3. Run the node
 ```sh
 pdm launch
     --role <validator|miner> \  # Select your role
