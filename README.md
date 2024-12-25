@@ -70,11 +70,14 @@ curl -sSL https://pdm.fming.dev/install-pdm.py | python3 -
 pdm install
 ```
 3. Run as validator or miner:
-```bash
+```sh
 pdm launch
     --role <validator|miner> \  # Select your role
     [--wallet.name <name>] \    # Optional: defaults to role name
     [--wallet.hotkey <hotkey>]  # Optional: defaults to 'default'
 ```
-
+For example, if you are a validator and your coldkey is named `validator` and hotkey is named `default`, then you can just run
+```sh
+pdm launch --role validator
+```
 In particular, before running the miner node, one must add mining logic, e.g. an LLM prompting loop with working API key, to the function `generate_proof` in `neurons/miner.py`.
