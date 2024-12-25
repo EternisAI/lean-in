@@ -36,24 +36,29 @@ async def forward(self):
         self (:obj:`bittensor.neuron.Neuron`): The neuron object which contains all the necessary state for the validator.
 
     """
-    # get_random_uids is an example method, but you can replace it with your own.
+    bt.logging.info("Starting validator forward pass...")
+    
     miner_uids = get_random_uids(self, k=self.config.neuron.sample_size)
-
+    bt.logging.info(f"Selected miner UIDs: {miner_uids}")
+    for uid in miner_uids:
+        axon = self.metagraph.axons[uid]
+        bt.logging.info(f"Miner {uid}:")
+        bt.logging.info(f"  Hotkey: {self.metagraph.hotkeys[uid]}")
+        bt.logging.info(f"  Axon: {axon}")
+    
     query = make_lean_query(self.step)
+    bt.logging.info(f"Query: {query}")
 
-    # The dendrite client queries the network.
-    responses = await self.dendrite(
-        # Send the query to selected miner axons in the network.
-        axons=[self.metagraph.axons[uid] for uid in miner_uids],
-        # Construct a dummy query. This simply contains a single string.
-        synapse=Dummy(dummy_input=query),
-        # All responses have the deserialize function called on them before returning.
-        # You are encouraged to define your own deserialization function.
-        deserialize=True,
-    )
-
-    # Log the results for monitoring purposes.
-    bt.logging.info(f"Received responses: {responses}")
+    try:
+        responses = await self.dendrite(
+            axons=[self.metagraph.axons[uid] for uid in miner_uids],
+            synapse=Dummy(dummy_input=query),
+            deserialize=True,
+        )
+        for uid, response in zip(miner_uids, responses):
+            bt.logging.info(f"Miner {uid} response: {response}")
+    except Exception as e:
+        bt.logging.error(f"Error: {str(e)}")
 
     # Adjust the scores based on responses from miners.
     rewards = get_rewards(self, query=query, responses=responses)

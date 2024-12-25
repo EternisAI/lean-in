@@ -27,7 +27,7 @@ import template
 from template.base.miner import BaseMinerNeuron
 
 
-def generate_proof(statement):
+def generate_proof(_statement):
     # fill in with custom LLM prompting loop
     pass
 
@@ -56,11 +56,14 @@ class Miner(BaseMinerNeuron):
 
         Returns:
             template.protocol.Dummy: The synapse object with the 'dummy_output' field set to twice the 'dummy_input' value.
-
-        The 'forward' function is a placeholder and should be overridden with logic that is appropriate for
-        the miner's intended operation. This method demonstrates a basic transformation of input data.
         """
-        synapse.dummy_output = generate_proof(synapse.dummy_input)
+        bt.logging.info(f"Miner received query from: {synapse.dendrite.hotkey}")
+        bt.logging.info(f"Query content: {synapse.dummy_input}")
+        
+        response = generate_proof(synapse.dummy_input)
+        bt.logging.info(f"Generated response: {response}")
+        
+        synapse.dummy_output = response
         return synapse
 
     async def blacklist(
@@ -163,10 +166,12 @@ class Miner(BaseMinerNeuron):
         )
         return priority
 
+    def save_state(self):
+        """Not saving state in this miner."""
+        pass
+
 
 # This is the main function, which runs the miner.
 if __name__ == "__main__":
     with Miner() as miner:
-        while True:
-            bt.logging.info(f"Miner running... {time.time()}")
-            time.sleep(5)
+        miner.run()

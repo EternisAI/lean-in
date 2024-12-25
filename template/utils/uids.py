@@ -15,14 +15,23 @@ def check_uid_availability(
     Returns:
         bool: True if uid is available, False otherwise
     """
+    bt.logging.debug(f"\nChecking availability for UID {uid}:")
+    bt.logging.debug(f"  Is serving: {metagraph.axons[uid].is_serving}")
+    bt.logging.debug(f"  Has validator permit: {metagraph.validator_permit[uid]}")
+    bt.logging.debug(f"  Stake: {metagraph.S[uid]}")
+    bt.logging.debug(f"  Permit limit: {vpermit_tao_limit}")
+
     # Filter non serving axons.
     if not metagraph.axons[uid].is_serving:
+        bt.logging.debug("  Result: False (not serving)")
         return False
     # Filter validator permit > 1024 stake.
     if metagraph.validator_permit[uid]:
         if metagraph.S[uid] > vpermit_tao_limit:
+            bt.logging.debug("  Result: False (validator with high stake)")
             return False
     # Available otherwise.
+    bt.logging.debug("  Result: True (available)")
     return True
 
 

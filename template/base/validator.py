@@ -86,28 +86,27 @@ class BaseValidatorNeuron(BaseNeuron):
 
     def serve_axon(self):
         """Serve axon to enable external connections."""
-
-        bt.logging.info("serving ip to chain...")
         try:
-            self.axon = bt.axon(wallet=self.wallet, config=self.config)
+            bt.logging.debug(f"Pre-axon config: {self.config.axon}")
+            self.axon = bt.axon(
+                wallet=self.wallet,
+                config=self.config() if callable(self.config) else self.config,
+            )
+            bt.logging.debug(f"Created axon with config: {self.config.axon}")
+            bt.logging.debug(f"Axon details: {self.axon}")
 
             try:
+                bt.logging.debug("About to serve axon...")
                 self.subtensor.serve_axon(
                     netuid=self.config.netuid,
                     axon=self.axon,
                 )
-                bt.logging.info(
-                    f"Running validator {self.axon} on network: {self.config.subtensor.chain_endpoint} with netuid: {self.config.netuid}"
-                )
+                bt.logging.debug(f"Post-serve axon details: {self.axon}")
+                bt.logging.info(f"Running validator {self.axon}")
             except Exception as e:
-                bt.logging.error(f"Failed to serve Axon with exception: {e}")
-                pass
-
+                bt.logging.error(f"Failed to serve Axon: {e}")
         except Exception as e:
-            bt.logging.error(
-                f"Failed to create Axon initialize with exception: {e}"
-            )
-            pass
+            bt.logging.error(f"Failed to create Axon: {e}")
 
     async def concurrent_forward(self):
         coroutines = [
@@ -242,8 +241,8 @@ class BaseValidatorNeuron(BaseNeuron):
         # Compute raw_weights safely
         raw_weights = self.scores / norm
 
-        bt.logging.debug("raw_weights", raw_weights)
-        bt.logging.debug("raw_weight_uids", str(self.metagraph.uids.tolist()))
+        bt.logging.debug(f"raw_weights: {raw_weights}")
+        bt.logging.debug(f"raw_weight_uids {self.metagraph.uids.tolist()}")
         # Process the raw weights to final_weights via subtensor limitations.
         (
             processed_weight_uids,
@@ -255,8 +254,8 @@ class BaseValidatorNeuron(BaseNeuron):
             subtensor=self.subtensor,
             metagraph=self.metagraph,
         )
-        bt.logging.debug("processed_weights", processed_weights)
-        bt.logging.debug("processed_weight_uids", processed_weight_uids)
+        bt.logging.debug(f"processed_weights: {processed_weights}")
+        bt.logging.debug(f"processed_weight_uids: {processed_weight_uids}")
 
         # Convert to uint16 weights and uids.
         (
@@ -265,8 +264,8 @@ class BaseValidatorNeuron(BaseNeuron):
         ) = convert_weights_and_uids_for_emit(
             uids=processed_weight_uids, weights=processed_weights
         )
-        bt.logging.debug("uint_weights", uint_weights)
-        bt.logging.debug("uint_uids", uint_uids)
+        bt.logging.debug(f"uint_weights: {uint_weights}")
+        bt.logging.debug(f"uint_uids: {uint_uids}")
 
         # Set the weights on chain via our subtensor connection.
         result, msg = self.subtensor.set_weights(

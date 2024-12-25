@@ -68,6 +68,12 @@ class BaseNeuron(ABC):
         # Set up logging with the provided configuration.
         bt.logging.set_config(config=self.config.logging)
 
+        # Log the FULL config
+        bt.logging.info("=== FULL CONFIG ===")
+        for key, value in vars(self.config).items():
+            bt.logging.info(f"{key}: {value}")
+        bt.logging.info("==================")
+
         # If a gpu is required, set the device to cuda:N (e.g. cuda:0)
         self.device = self.config.neuron.device
 
@@ -117,10 +123,7 @@ class BaseNeuron(ABC):
         ...
 
     def sync(self):
-        """
-        Wrapper for synchronizing the state of the network for the given miner or validator.
-        """
-        # Ensure miner or validator hotkey is still registered on the network.
+        """Wrapper for synchronizing the state of the network."""
         self.check_registered()
 
         if self.should_sync_metagraph():
