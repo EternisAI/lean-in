@@ -22,7 +22,6 @@ class CompilationResult:
     error_message: str = ""
 
 def check_lean_proof(program: str) -> CompilationResult:
-    # Write to a temporary file
     temp_file = Path("temp.lean")
     temp_file.write_text(program)
     

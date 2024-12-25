@@ -56,10 +56,12 @@ class Validator(BaseValidatorNeuron):
         """
         return await forward(self)
 
+    def save_state(self):
+        """Not saving state in this validator."""
+        pass
+
 
 # The main function parses the configuration and runs the validator.
 if __name__ == "__main__":
     with Validator() as validator:
-        while True:
-            bt.logging.info(f"Validator running... {time.time()}")
-            time.sleep(5)
+        validator.run()
