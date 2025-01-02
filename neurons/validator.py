@@ -63,5 +63,10 @@ class Validator(BaseValidatorNeuron):
 
 # The main function parses the configuration and runs the validator.
 if __name__ == "__main__":
-    with Validator() as validator:
-        validator.run()
+    while True:
+        try:
+            with Validator() as validator:
+                validator.run()
+        except Exception as e:
+            print(f"Error occurred: {e}")
+            continue
